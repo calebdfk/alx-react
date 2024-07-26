@@ -15,7 +15,7 @@ describe('Notifications Component', () => {
   it('renders the text Here is the list of notifications', () => {
     const wrapper = shallow(<Notifications />);
     expect(wrapper.text()).toContain('Here is the list of notifications');
+    console.log('Text content test passed');
   });
 });
 
-console.log();

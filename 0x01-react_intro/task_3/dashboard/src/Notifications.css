@@ -1,0 +1,24 @@
+:root {
+	--color-brand: #e01d3f;
+  }
+  
+  .Notifications {
+	padding: 30px;
+	border: 3px solid var(--color-brand);
+	border-style: dashed;
+	/* font-family: sans-serif; */
+	font-size: 20px;
+  }
+  
+  .Notifications button img {
+	width: 20px;
+  
+  }
+  
+  [data-priority="default"] {
+	color: #210a61;
+  }
+  
+  [data-priority="urgent"] {
+	color: #e01d3f;
+  } 

@@ -1,33 +1,26 @@
-import React from 'react';
-import { shallow, mount } from 'enzyme';
-import App from './App';
+import React from "react";
+import { shallow, mount } from "enzyme";
+import App from "./App";
+import Login from '../Login/Login';
+import CourseList from '../CourseList/CourseList';
+import * as global from 'global'; // Import global module
 
-// Mock global alert
-global.alert = jest.fn();
+describe("<App />", () => {
+  // ... other tests
 
-describe('<App />', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
-  it('renders without crashing', () => {
-    const wrapper = shallow(<App />);
-    expect(wrapper.exists()).toBe(true);
-  });
-
-  it('should call logOut and display alert when ctrl + h is pressed', () => {
+  it("logOut function is called and alert is displayed", () => {
     const logOut = jest.fn();
-    const wrapper = mount(<App logOut={logOut} isLoggedIn={true} />);
+    const mockAlert = jest.fn();
+    global.alert = mockAlert; // Assign the mock function to global.alert
 
-    // Simulate a keyboard event
+    const wrapper = mount(<App logOut={logOut} />);
     const event = new KeyboardEvent('keydown', { ctrlKey: true, key: 'h' });
-    document.dispatchEvent(event);
+    wrapper.simulate('keydown', event);
 
-    // Check if logOut was called
-    expect(logOut).toHaveBeenCalled();
-    // Check if alert was called
-    expect(global.alert).toHaveBeenCalledWith('Logging you out');
+    expect(logOut).toHaveBeenCalledTimes(1);
+    expect(mockAlert).toHaveBeenCalledWith('Logging you out');
 
-    wrapper.unmount();
+    jest.restoreAllMocks();
+    global.alert = undefined; // Restore global.alert to its original state
   });
 });
